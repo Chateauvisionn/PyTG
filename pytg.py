@@ -1,67 +1,67 @@
-from time import sleep
+import time
 import sys
 import os
 from os.path import isfile
 from shutil import rmtree, copyfile
 
-# project management
-if sys.argv[1] == "project":
 
-  # create a project
-  if sys.argv[2] == "create":
+try:
+  # project management
+  if sys.argv[1] == "project":
 
-    try:
-      # game folder
-      print(f"Creating {sys.argv[3]} folder")
-      os.mkdir(sys.argv[3])
-      # main.py
-      print(f"Creating {sys.argv[3]}/main.py")
-      with open(f"{sys.argv[3]}/main.py", "w") as mpy:
-        mpy.write("from pytg import *\nfrom config import Config\n\ndef game():\n  # game script\n pass\n\nif __name__ == '__main__':\n  game()")
-      # config.py
-      print(f"Creating {sys.argv[3]}/config.py")
-      with open(f"{sys.argv[3]}/config.py", "w") as cpy:
-        cpy.write("class Config():\n # config class that you can import in main.py\n pass")
-      # chars.txt
-      print(f"Creating {sys.argv[3]}/chars.txt")
-      with open(f"{sys.argv[3]}/chars.txt", "w") as ct:
-        ct.write("[]")
-      # saves
-      os.mkdir(f"{sys.argv[3]}/saves")
-      # module
-      os.mkdir(f"{sys.argv[3]}/pytg")
-      os.mkdir(f"{sys.argv[3]}/pytg/src")
-      os.mkdir(f"{sys.argv[3]}/pytg/src/pytg")
-      copyfile("pytg.py", f"{sys.argv[3]}/pytg/src/pytg/pytg.py")
-      copyfile("__init__.py", f"{sys.argv[3]}/pytg/src/pytg/__init__.py")
-      print("Project created")
+    # create a project
+    if sys.argv[2] == "create":
 
-    except FileExistsError:
-      print("Error: This project already exist.")
-  
-  # delete a project 
-  if sys.argv[2] == "delete":
+      try:
+        # game folder
+        print(f"Creating {sys.argv[3]} folder")
+        os.mkdir(sys.argv[3])
+        # main.py
+        print(f"Creating {sys.argv[3]}/main.py")
+        with open(f"{sys.argv[3]}/main.py", "w") as mpy:
+          mpy.write("from pytg import *\nfrom config import Config\n\ndef game():\n  # game script\n pass\n\nif __name__ == '__main__':\n  game()")
+        # config.py
+        print(f"Creating {sys.argv[3]}/config.py")
+        with open(f"{sys.argv[3]}/config.py", "w") as cpy:
+          cpy.write("class Config():\n # config class that you can import in main.py\n pass")
+        # saves
+        os.mkdir(f"{sys.argv[3]}/saves")
+        print(f"Creating {sys.argv[3]}/saves/chars.txt")
+        with open(f"{sys.argv[3]}/saves/chars.txt", "w") as ct:
+          ct.write("[]")
 
-    try:
-      rmtree(sys.argv[3])
-      print("Project deleted")
+        # module
+        copyfile("pytg.py", f"{sys.argv[3]}/pytg.py")
+        print("Project created")
 
-    except FileNotFoundError:
-      print("Error: This project doesn't exist.")
-  
-  # rename
-  if sys.argv[2] == "rename":
-    try:
-      os.rename(sys.argv[3], sys.argv[4])
-    except:
-      print("This project doesn't exist.")
+      except FileExistsError:
+        print("Error: This project already exist.")
+    
+    # delete a project 
+    if sys.argv[2] == "delete":
 
-# verify the installation
-if sys.argv[1] == "verify":
-  if not os.path.isfile("__init__.py"):
-    print("__init__.py is missing!")
-  else:
-    print("Everything is good!")
+      try:
+        rmtree(sys.argv[3])
+        print("Project deleted")
+
+      except FileNotFoundError:
+        print("Error: This project doesn't exist.")
+    
+    # rename
+    if sys.argv[2] == "rename":
+      try:
+        os.rename(sys.argv[3], sys.argv[4])
+      except:
+        print("This project doesn't exist.")
+
+  # verify the installation
+  if sys.argv[1] == "verify":
+    if not os.path.isfile("__init__.py"):
+      print("__init__.py is missing!")
+    else:
+      print("Everything is good!")
+except IndexError:
+  pass
 
 chars = []
 
@@ -101,9 +101,5 @@ def choice(o1,cons1, o2=None, cons2=None):
       print('Invalid choice')
 
 # dialogue
-def dialog(char, text, time=2):
+def dialog(char, text):
   print(char,":", text)
-  try:
-    time.sleep(time)
-  except:
-    print("Indicated time is not valid")
