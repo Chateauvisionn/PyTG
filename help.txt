@@ -1,0 +1,5 @@
+Type "python pytg.py project create <name>" to create a project.
+
+Type "python pytg.py project delete <name>" to delete a project.
+
+Type "python pytg.py project rename <name> <new name>" to rename a project.
