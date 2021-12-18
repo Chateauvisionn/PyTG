@@ -1,6 +1,7 @@
 from time import sleep
 import sys
 import os
+from os.path import isfile
 from shutil import rmtree, copyfile
 
 # project management
@@ -55,6 +56,12 @@ if sys.argv[1] == "project":
     except:
       print("This project doesn't exist.")
 
+# verify the installation
+if sys.argv[1] == "verify":
+  if not os.path.isfile("__init__.py"):
+    print("__init__.py is missing!")
+  else:
+    print("Everything is good!")
 
 chars = []
 
