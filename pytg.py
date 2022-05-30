@@ -1,6 +1,4 @@
-import time
-import sys
-import os
+import time, sys, os
 from os.path import isfile
 from shutil import rmtree, copyfile
 
@@ -61,7 +59,6 @@ try:
     else:
       print("Everything is good!")
 except IndexError:
-  import os.path
   if os.path.isfile("help.txt"):
     os.system("cat help.txt")
   else:
@@ -85,25 +82,28 @@ def choice(o1,cons1, o2=None, cons2=None):
   if isinstance(cons1, str):
     print(cons1)
   else:
-    cons1
+    cons1()
   if isinstance(cons2, str):
     print(cons2)
   else:
-    cons2
+    cons2()
   print(o1)
   print(o2)
   ch = True
   while ch:
     c = input("Choose: ")
     if c == o1:
-      cons1
+      cons1()
       ch = False
     elif c == o2:
-      cons2
+      cons2()
       ch = False
     else:
       print('Invalid choice')
 
 # dialogue
 def dialog(char, text):
-  print(char,":", text)
+  if char in chars:
+    print(f"{char}: {text}")
+  else:
+    print(f"character \"{char}\" doesn't exist")
